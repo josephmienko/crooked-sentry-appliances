@@ -1,17 +1,19 @@
 # Phase 6: Home Assistant Frigate Integration
 
-**Duration**: ~30 min – 1 hour  
+**Duration**: ~30 min – 1 hour
 **Goal**: Connect Home Assistant to Frigate via the official integration for unified monitoring and automation.
 
 ## Overview
 
 The Frigate integration for Home Assistant enables:
+
 - Camera controls and live view
 - Object detection statistics and histories
 - Event monitoring and notifications
 - Automation based on detection events
 
-**Prerequisites**: 
+**Prerequisites**:
+
 - Phase 2 (HA OS) complete
 - Phase 5 (Frigate) complete and running
 - MQTT bridge working (Phase 4)
@@ -20,7 +22,7 @@ The Frigate integration for Home Assistant enables:
 
 ## Step 1: Add Frigate Integration via HA UI
 
-1. **Log into HA** as owner (http://192.168.1.10:8123 or homeassistant.local:8123)
+1. **Log into HA** as owner ([http://192.168.1.10:8123](http://192.168.1.10:8123) or [homeassistant.local:8123](http://homeassistant.local:8123))
 
 2. **Settings > Devices & Services > Create Integration** (or "Integrations" button)
 
@@ -29,9 +31,10 @@ The Frigate integration for Home Assistant enables:
    - (Not "Frigate Card" – that's a UI card, comes later)
 
 4. **Enter Frigate Server URL**:
-   ```
+
+   ```text
    http://192.168.1.20:5000
-   ```
+
    (Use the OptiPlex IP or hostname + Frigate API port from Phase 5)
 
 5. **Click Submit**
@@ -62,7 +65,7 @@ The Frigate integration for Home Assistant enables:
 Click **Devices** under Frigate integration to see:
 
 | Entity Type | Expected | Notes |
-|---|---|---|
+| --- | --- | --- |
 | Camera(s) | placeholder_camera (disabled) | Actual cameras added later |
 | Detectors | Various object counts | Person, car, dog, cat detections |
 | Switches | Frigate recording toggle | Control Frigate recording on/off |
@@ -97,12 +100,14 @@ ha core logs | grep -i frigate | tail -20
 If you want a custom UI card (not just entity states), install and add:
 
 **Via HACS** (if available in Phase 1):
+
 1. Settings > Add-ons > HACS (if installed)
 2. Search "Frigate Card"
 3. Install
 4. Add to dashboard as card
 
 **Or use built-in HA card** (simpler for Phase 1):
+
 1. Create/Edit dashboard
 2. Create Manual Card
 3. Select "Entities" or "Picture Elements" layout
@@ -161,7 +166,7 @@ Create a test automation using Frigate events:
 
 ### Integration fails to connect
 
-- Verify Frigate URL: http://192.168.1.20:5000/api/version (from HA terminal)
+- Verify Frigate URL: [192.168.1.20:5000/api/version](http://192.168.1.20:5000/api/version) (from HA terminal)
 - Firewall: Ensure port 5000 accessible from HA
 - CORS: Some Frigate versions allow/block cross-origin requests
 - Restart integration: Settings > Devices & Services > Frigate > (options) > Reload

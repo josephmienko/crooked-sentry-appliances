@@ -6,6 +6,7 @@
 ## Decision: Mosquitto Add-on on HA OS
 
 For Phase 1, we use the **Mosquitto add-on** (runs on Raspberry Pi via HA) instead of a separate broker. Advantages:
+
 - Simple installation (via HA add-on store)
 - Built-in to HA ecosystem
 - No additional hardware/container needed
@@ -18,6 +19,7 @@ For Phase 1, we use the **Mosquitto add-on** (runs on Raspberry Pi via HA) inste
 ## Step 1: Install Mosquitto Add-on on HA OS
 
 1. **SSH or use HA Terminal**:
+
    ```bash
    ssh root@192.168.1.10
    # or use Settings > System > Terminal in HA UI
@@ -31,6 +33,7 @@ For Phase 1, we use the **Mosquitto add-on** (runs on Raspberry Pi via HA) inste
    - Wait for download and installation (~2–3 min)
 
 3. **Alternative**: Via terminal (if UI not available):
+
    ```bash
    # Check existing add-ons
    ha addons list
@@ -49,6 +52,7 @@ After installation, configure the addon settings:
 
 1. **In HA UI**: Settings > Add-ons > Mosquitto Broker
 2. **Configuration tab**:
+
    ```yaml
    logins:
      - username: homeassistant
@@ -60,6 +64,7 @@ After installation, configure the addon settings:
    certfile: fullchain.pem
    keyfile: privkey.pem
    ```
+
    - Replace `<your-secure-password>` with a strong password (store in secrets.env)
    - Add frigate user for Phase 5
 
@@ -141,6 +146,7 @@ mosquitto_pub -h 192.168.1.10 \
 ```
 
 **Expected Output**:
+
 - No connection errors
 - Message appears in subscriber session
 - Successful pub/sub flow
@@ -159,6 +165,7 @@ In HA, test by publishing a message and observing on OptiPlex:
    - Click **Publish**
 
 2. **On OptiPlex** (in another terminal):
+
    ```bash
    mosquitto_sub -h 192.168.1.10 \
      -u homeassistant \
@@ -188,7 +195,7 @@ In HA, test by publishing a message and observing on OptiPlex:
 ## MQTT Port & Settings for Later Phases
 
 | Setting | Value | Notes |
-|---------|-------|-------|
+| --- | --- | --- |
 | Broker Host | 192.168.1.10 | HA OS / Raspberry Pi |
 | Broker Port | 1883 | Standard MQTT (no SSL Phase 1) |
 | User (HA) | homeassistant | Default HA user |

@@ -19,6 +19,11 @@ id_ed25519
 homeassistant/config/
 homeassistant/backups/
 
+# Quarto-generated HTML and dependencies (documentation artifacts)
+*.html
+*_files/
+.quarto/
+
 # Docker & Compose
 docker-compose.override.yml
 .docker/

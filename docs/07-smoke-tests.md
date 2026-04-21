@@ -7,7 +7,8 @@
 
 Smoke tests are quick checks to verify nothing is obviously broken. This phase ensures all Phase 1–6 investments are protected via backups.
 
-**Prerequisites**: 
+**Prerequisites**:
+
 - Phase 1–6 all complete and validated
 
 ---
@@ -261,6 +262,7 @@ du -sh ~/frigate-setup/frigate/recordings
 This is destructive if done incorrectly. **Feel free to skip** if not comfortable.
 
 Only if confident:
+
 1. **Create a second backup** (safety net)
 2. **Restore first backup** from the backup list
 3. **Verify** HA restarts and settings intact
@@ -349,6 +351,7 @@ cat deployment-completed-phase7.txt
 ## Phase 7 Validation Checklist
 
 **Connectivity**:
+
 - [ ] Raspberry Pi responds to ping
 - [ ] OptiPlex responds to ping
 - [ ] HA Web UI accessible and responsive
@@ -356,22 +359,26 @@ cat deployment-completed-phase7.txt
 - [ ] MQTT broker reachable from both appliances
 
 **Service Resilience**:
+
 - [ ] Frigate restarts cleanly (no restart loops)
 - [ ] HA restarts cleanly and reloads successfully
 - [ ] Full system restart successful (both appliances boot)
 
 **Integration Health**:
+
 - [ ] Frigate integration visible and "Loaded" in HA
 - [ ] MQTT integration shows "Connected" status
 - [ ] System Health shows all components OK
 - [ ] No persistent error messages in logs
 
 **Storage**:
+
 - [ ] HA storage > 1 GB free
 - [ ] OptiPlex storage > 100 GB available (for recordings)
 - [ ] Frigate recordings directory has write access
 
 **Backups**:
+
 - [ ] HA backup created and verified
 - [ ] Frigate config backed up and portable
 - [ ] System state documented in deployment file
@@ -401,9 +408,10 @@ cat deployment-completed-phase7.txt
 
 ## Post-Phase 7: System Ready
 
-Congratulations! Your appliance infrastructure is now **stable and validated**. 
+Congratulations! Your appliance infrastructure is now **stable and validated**.
 
 **You can now**:
+
 - Add actual cameras to Frigate
 - Build automations in HA
 - Deploy custom dashboards
@@ -416,6 +424,7 @@ Congratulations! Your appliance infrastructure is now **stable and validated**.
 ### Phase 8: HACS & Custom Components (Future)
 
 Integrate split-off repos:
+
 - `lovelace-m3-core-cards`
 - `lovelace-m3-lighting-dashboard`
 - `lovelace-frigate-event-feed`

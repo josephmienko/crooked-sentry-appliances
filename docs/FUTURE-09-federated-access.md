@@ -15,6 +15,7 @@ Phase 9 adds federated authentication and optional remote access:
 ## Why Phase 9 (Not Phase 1)?
 
 Security best practices recommend:
+
 - Core system proven stable first (Phase 1–8)
 - Local fallback account always available
 - Auth infrastructure tested separately before federation
@@ -81,10 +82,12 @@ A lightweight OIDC provider if you want to host your own identity system:
 ### Step 2: Set Up Identity Provider
 
 **Option A**: Use existing OIDC provider (Google, GitHub)
+
 - [ ] Register OAuth apps on provider
 - [ ] Configure client ID and secret in HA
 
 **Option B**: Deploy AuthentiK on OptiPlex (Docker)
+
 - [ ] Create Docker Compose for AuthentiK
 - [ ] Add users locally or via LDAP
 - [ ] Configure authentiK as OIDC provider for HA
@@ -132,7 +135,7 @@ If desired:
 
 ## Architecture (Planned)
 
-```
+```txt
 ┌─────────────────────────────────────────────────────────┐
 │  Your Local Network + Remote (NetBird Optional)         │
 │                                                          │
@@ -158,7 +161,7 @@ If desired:
 ## Risks & Mitigation
 
 | Risk | Mitigation |
-|------|--------|
+| --- | --- |
 | SSO outage blocks all access | Maintain working local account; test fallback weekly |
 | Identity provider misconfiguration | Document all settings; create backup before changes |
 | NetBird client update breaks access | Keep HA accessible via local network; test VPN periodically |
@@ -193,10 +196,10 @@ Beyond initial Phase 9:
 ## References (Future)
 
 - **ha-federated-access**: [GitHub repo when split]
-- **OIDC Spec**: https://openid.net/connect/
+- **OIDC Spec**: [openid.net/connect/](https://openid.net/connect/)
 - **AuthentiK**: [Custom IdP docs when finalized]
-- **NetBird**: https://netbird.io/
-- **Home Assistant Auth**: https://www.home-assistant.io/docs/authentication/
+- **NetBird**: [netbird.io](https://netbird.io/)
+- **Home Assistant Auth**: [home-assistant.io/docs/authentication/](https://www.home-assistant.io/docs/authentication/)
 
 ---
 

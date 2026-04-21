@@ -8,6 +8,7 @@
 The OptiPlex will run Frigate (NVR) and supporting services via Docker Compose. This phase ensures the OS is updated, Docker is installed, and the system is ready for container workloads.
 
 **Prerequisites**:
+
 - Phase 1 (Inventory & Assumptions) completed
 - OptiPlex has Linux OS (Ubuntu 22.04 LTS or Debian 12 preferred)
 - Network connectivity confirmed from Phase 1
@@ -25,6 +26,7 @@ ssh user@optiplex-frigate.local
 ```
 
 Check the system:
+
 ```bash
 uname -a
 # Expected: Linux optiplex-frigate x86-64
@@ -35,15 +37,17 @@ cat /etc/os-release
 
 **Result**: [ ] OS confirmed (Ubuntu 22.04 LTS or Debian 12)
 
-### If OS is not Linux or is outdated:
+### If OS is not Linux or is outdated
 
 **Option A**: Clean install from USB media
-- Download Ubuntu 22.04 LTS ISO from https://releases.ubuntu.com/
+
+- Download Ubuntu 22.04 LTS ISO from [releases.ubuntu.com](https://releases.ubuntu.com/)
 - Flash to USB using Etcher or similar
 - Boot OptiPlex from USB and follow installer
 - After install, SSH and verify with commands above
 
 **Option B**: Upgrade existing OS (if already Linux)
+
 ```bash
 sudo apt update
 sudo apt dist-upgrade -y
@@ -115,6 +119,7 @@ docker compose version
 ```
 
 If `docker compose` fails, try:
+
 ```bash
 docker-compose --version
 # Older v1 syntax; upgrade recommended but Phase 5 will adjust
@@ -134,6 +139,7 @@ newgrp docker
 ```
 
 Test without `sudo`:
+
 ```bash
 docker ps
 # Expected: Empty container list or existing containers, no permission error
@@ -177,6 +183,7 @@ EOF
 ```
 
 Restart Docker to apply:
+
 ```bash
 sudo systemctl restart docker
 docker ps
@@ -201,6 +208,7 @@ exec bash
 ```
 
 Verify:
+
 ```bash
 hostname
 # Expected: optiplex-frigate
@@ -220,12 +228,14 @@ sudo systemctl status ssh
 ```
 
 If not running:
+
 ```bash
 sudo systemctl enable ssh
 sudo systemctl start ssh
 ```
 
 Test SSH from your development machine:
+
 ```bash
 ssh user@192.168.1.20 "echo 'SSH working'"
 # Expected: "SSH working" output
@@ -271,6 +281,7 @@ sudo ufw enable
 ```
 
 Then verify:
+
 ```bash
 curl http://localhost:5000/api/version
 # Will fail at this point (Frigate not running yet), but shows port is reachable

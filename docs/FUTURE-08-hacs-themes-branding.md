@@ -17,6 +17,7 @@ Phase 8 integrates the following custom repositories and components into Home As
 ## Why Phase 8 (Not Phase 1)?
 
 Systems become more stable and less error-prone when:
+
 - Core services are proven operational (Phase 1–7)
 - HACS updates don't break core functionality
 - Custom components can be added/removed without impacting reliability
@@ -95,11 +96,11 @@ Using installed components:
 
 ## Risks & Mitigation
 
-| Risk | Mitigation |
-|------|-----------|
-| HACS update breaks core HA | Keep backup from Phase 7; rollback if needed |
-| Custom component incompatibility | Install one at a time; test before proceeding |
-| Theme conflicts with integrations | Test theme on test user first |
+| Risk                              | Mitigation                                       |
+| --------------------------------- | ------------------------------------------------ |
+| HACS update breaks core HA        | Keep backup from Phase 7; rollback if needed     |
+| Custom component incompatibility  | Install one at a time; test before proceeding    |
+| Theme conflicts with integrations | Test theme on test user first                    |
 | Lost backups during customization | Create backup before and after each major change |
 
 ## Rollback Plan
@@ -123,9 +124,9 @@ When ready to implement Phase 8:
 
 ## References (Future)
 
-- HACS Documentation: https://hacs.xyz/
-- M3 Design System: https://m3.material.io/
-- HA Themes: https://www.home-assistant.io/docs/frontend/themes/
+- HACS Documentation: [hacs.xyz](https://hacs.xyz/)
+- M3 Design System: [m3.material.io](https://m3.material.io/)
+- HA Themes: [home-assistant.io/docs/frontend/themes/](https://www.home-assistant.io/docs/frontend/themes/)
 
 ---
 

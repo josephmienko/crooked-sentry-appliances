@@ -12,7 +12,7 @@ This directory contains the Docker Compose and configuration files for running F
 
 Expected layout after Phase 5 setup:
 
-```
+```bash
 optiplex-frigate/
 ├── docker-compose.yml
 ├── .env                          # Your actual env file (generated from .env.example)
@@ -92,12 +92,12 @@ The main Frigate configuration file. Key sections:
 - **record** – Recording retention policies
 - **snapshots** – Snapshot capture settings
 
-See example and Frigate documentation: https://docs.frigate.video/
+See example and Frigate documentation: [docs.frigate.video](https://docs.frigate.video/)
 
 ### Environment Variables (.env)
 
 | Variable | Purpose | Example |
-|----------|---------|---------|
+| --- | --- | --- |
 | MQTT_HOST | MQTT broker IP | 192.168.1.10 |
 | MQTT_PORT | MQTT port | 1883 |
 | MQTT_USER | MQTT username | frigate |
@@ -167,6 +167,7 @@ When you have cameras to add:
 
 1. Edit `frigate/config/config.yml`
 2. Add camera section with RTSP URL:
+
    ```yaml
    camera:
      - name: front_door
@@ -175,6 +176,7 @@ When you have cameras to add:
          inputs:
            - path: rtsp://user:pass@192.168.1.100:554/stream
    ```
+
 3. Restart Frigate: `docker compose restart frigate`
 4. Verify in Frigate UI: `http://192.168.1.20:5000`
 
@@ -235,6 +237,7 @@ For systems with GPU support, enable in YOLO detection config and docker-compose
 ## Next Steps
 
 After Frigate is running:
+
 1. Connect via HA integration (Phase 6)
 2. Add cameras and configure detection
 3. Set up HA automations based on Frigate events

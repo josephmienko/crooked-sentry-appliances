@@ -43,26 +43,26 @@ if [ -f "$SECRETS_FILE" ]; then
 fi
 
 # Prompt for secrets
-read -p "Enter MQTT password (for homeassistant user): " -s mqtt_password
+read -rp "Enter MQTT password (for homeassistant user): " -s mqtt_password
 echo ""
 
-read -p "Enter Frigate MQTT password (for frigate user): " -s frigate_mqtt_password
+read -rp "Enter Frigate MQTT password (for frigate user): " -s frigate_mqtt_password
 echo ""
 
-read -p "Enter Frigate RTSP password: " -s frigate_rtsp_password
+read -rp "Enter Frigate RTSP password: " -s frigate_rtsp_password
 echo ""
 
-read -p "Enter Home Assistant admin password: " -s ha_admin_password
+read -rp "Enter Home Assistant admin password: " -s ha_admin_password
 echo ""
 
 # Optional extras
-read -p "Enter latitude for HA (default 35.0): " latitude
+read -rp "Enter latitude for HA (default 35.0): " latitude
 latitude=${latitude:-35.0}
 
-read -p "Enter longitude for HA (default -85.0): " longitude
+read -rp "Enter longitude for HA (default -85.0): " longitude
 longitude=${longitude:-85.0}
 
-read -p "Enter elevation in meters (default 400): " elevation
+read -rp "Enter elevation in meters (default 400): " elevation
 elevation=${elevation:-400}
 
 # Generate secrets file

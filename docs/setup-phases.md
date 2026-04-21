@@ -4,17 +4,17 @@ This document outlines the complete setup journey, with expected outcomes and va
 
 ## Overview
 
-| Phase | Title                        | Owner  | Duration        | Status    |
-| ----- | ---------------------------- | ------ | --------------- | --------- |
-| 1     | Inventory & Assumptions      | You    | 30 min          | ✅ Phase 1 |
-| 2     | HA OS Install (Raspberry Pi) | You    | 1–2 hours       | 📋 Phase 2 |
-| 3     | OptiPlex Linux + Docker      | You    | 1–2 hours       | 📋 Phase 3 |
-| 4     | MQTT Setup                   | You    | 30 min – 1 hour | 📋 Phase 4 |
-| 5     | Frigate Docker Compose       | You    | 1–2 hours       | 📋 Phase 5 |
-| 6     | HA Frigate Integration       | You    | 30 min – 1 hour | 📋 Phase 6 |
-| 7     | Smoke Tests & Backups        | You    | 1 hour          | 📋 Phase 7 |
-| 8     | HACS / Themes / Branding     | Future | TBD             | 🔮 Future  |
-| 9     | Federated Access (Auth)      | Future | TBD             | 🔮 Future  |
+| Phase | Title | Owner | Duration | Status |
+| --- | --- | --- | --- | --- |
+| 1 | Inventory & Assumptions | You | 30 min | ✅ Phase 1 |
+| 2 | HA OS Install (Raspberry Pi) | You | 1–2 hours | 📋 Phase 2 |
+| 3 | OptiPlex Linux + Docker | You | 1–2 hours | 📋 Phase 3 |
+| 4 | MQTT Setup | You | 30 min – 1 hour | 📋 Phase 4 |
+| 5 | Frigate Docker Compose | You | 1–2 hours | 📋 Phase 5 |
+| 6 | HA Frigate Integration | You | 30 min – 1 hour | 📋 Phase 6 |
+| 7 | Smoke Tests & Backups | You | 1 hour | 📋 Phase 7 |
+| 8 | HACS / Themes / Branding | Future | TBD | 🔮 Future |
+| 9 | Federated Access (Auth) | Future | TBD | 🔮 Future |
 
 ## Phase 1: Inventory & Assumptions (30 minutes)
 
@@ -45,7 +45,7 @@ This document outlines the complete setup journey, with expected outcomes and va
 
 **Tasks**:
 
-1. Download HA OS image for Raspberry Pi (from home-assistant.io/download)
+1. Download HA OS image for Raspberry Pi (from [home-assistant.io/download](https://home-assistant.io/download))
 2. Flash MicroSD card using Raspberry Pi Imager or balena Etcher
 3. Insert SD card, cable up Ethernet or WiFi, power on
 4. Wait for first boot (5–10 minutes)
@@ -87,6 +87,7 @@ This document outlines the complete setup journey, with expected outcomes and va
    ```bash
    curl -fsSL https://get.docker.com -o get-docker.sh
    sudo sh get-docker.sh
+   sudo sh get-docker.sh
    sudo usermod -aG docker $USER
    newgrp docker
    docker compose version
@@ -106,7 +107,7 @@ This document outlines the complete setup journey, with expected outcomes and va
    sudo hostnamectl set-hostname optiplex-frigate
    ```
 
-7.  Enable SSH pubkey auth (already done in most Linux installs)
+7. Enable SSH pubkey auth (already done in most Linux installs)
 
 **Validation Checklist**:
 
@@ -138,10 +139,12 @@ This document outlines the complete setup journey, with expected outcomes and va
    - Optionally enable "Auto update"
 5. Start the add-on
 6. From OptiPlex, test MQTT connectivity:
+
    ```bash
    sudo apt install -y mosquitto-clients
    mosquitto_pub -h 192.168.1.10 -u homeassistant -P <PASSWORD> -t "test/ping" -m "hello"
    ```
+
 7. In HA, verify MQTT integration appears (should auto-discover)
 8. Optional: Configure ACL file for Frigate user (see examples/mosquitto-v4-aclfile.example.txt)
 
@@ -163,12 +166,16 @@ This document outlines the complete setup journey, with expected outcomes and va
 **Tasks**:
 
 1. On OptiPlex, create working directory:
+
    ```bash
    mkdir -p ~/frigate-setup
    cd ~/frigate-setup
    ```
+
 2. Copy or create `docker-compose.yml` (see compose/optiplex-frigate/docker-compose.yml template)
+
 3. Create `.env` file with your network values (see compose/optiplex-frigate/.env.example):
+
    ```bash
    FRIGATE_API_HOST=0.0.0.0
    FRIGATE_API_PORT=5000
@@ -178,18 +185,24 @@ This document outlines the complete setup journey, with expected outcomes and va
    MQTT_USER=homeassistant
    MQTT_PASSWORD=<your-password>
    ```
+
 4. Create minimal frigate config:
+
    ```bash
    mkdir -p ./frigate/config
    cp examples/frigate-config.example.yml ./frigate/config/config.yml
    # Edit config.yml with your actual camera IPs (if adding now) or leave with placeholders
    ```
+
 5. Bring up Frigate:
+
    ```bash
    docker compose up -d
    docker compose logs frigate
    ```
+
 6. Verify container is running:
+
    ```bash
    docker ps | grep frigate
    ```
@@ -310,9 +323,9 @@ If you encounter issues during any phase:
 
 5. **Reference official docs**:
 
-   - Home Assistant: https://www.home-assistant.io/
-   - Frigate: https://docs.frigate.video/
-   - Mosquitto: https://mosquitto.org/
+   - Home Assistant: [home-assistant.io](https://www.home-assistant.io/)
+   - Frigate: [docs.frigate.video](https://docs.frigate.video/)
+   - Mosquitto: [mosquitto.org](https://mosquitto.org/)
 
 ---
 

@@ -7,7 +7,8 @@
 
 Home Assistant OS is a purpose-built appliance image that runs on Raspberry Pi (and other supported boards). It includes Docker, Home Assistant Core, and a supervisor for add-on management.
 
-**Prerequisites**: 
+**Prerequisites**:
+
 - Phase 1 (Inventory & Assumptions) completed
 - MicroSD card inserted into development machine (USB reader)
 - Raspberry Pi offline and powered down
@@ -16,13 +17,14 @@ Home Assistant OS is a purpose-built appliance image that runs on Raspberry Pi (
 
 ## Step 1: Download Home Assistant OS Image
 
-1. **Visit** https://www.home-assistant.io/download/ and select **Raspberry Pi**
+1. **Visit** [home-assistant.io/download](https://www.home-assistant.io/download/) and select **Raspberry Pi**
 2. Choose your board version:
    - **Raspberry Pi 4** (64-bit) – ARM v8/aarch64
    - **Raspberry Pi 5** (64-bit) – ARM v8/aarch64
    - Other: CM4, Zero 2 W (choose accordingly)
 3. Click **Download** – saves `ha-rpi-x.y.img.gz` (~900 MB)
 4. Verify checksum if provided (optional but recommended):
+
    ```bash
    sha256sum ha-rpi-x.y.img.gz
    # Compare against published checksum on download page
@@ -38,7 +40,7 @@ You'll write the HA OS image to your MicroSD card using one of these tools:
 
 ### Option A: Raspberry Pi Imager (Recommended)
 
-**macOS / Linux / Windows**: https://www.raspberrypi.com/software/
+**macOS / Linux / Windows**: [raspberrypi.com/software](https://www.raspberrypi.com/software/)
 
 1. Install **Raspberry Pi Imager**
 2. Insert MicroSD card into USB reader
@@ -54,7 +56,7 @@ You'll write the HA OS image to your MicroSD card using one of these tools:
 
 ### Option B: balena Etcher (Alternative)
 
-1. Download from https://www.balena.io/etcher/
+1. Download from [balena.io/etcher](https://www.balena.io/etcher/)
 2. Install and open
 3. **Flash from file**: Select `ha-rpi-x.y.img.gz`
 4. **Select target**: Choose your MicroSD card
@@ -80,6 +82,7 @@ You'll write the HA OS image to your MicroSD card using one of these tools:
 6. **Allow first boot** – wait 5–10 minutes while system initializes
 
 **During first boot, the Pi will**:
+
 - Resize filesystem
 - Initialize container runtime
 - Set up network
@@ -96,7 +99,6 @@ The Raspberry Pi will obtain an IP via DHCP (your router manages this).
 
 ### Option A: Via Hostname (Preferred if mDNS Available)
 
-From your development machine:
 ```bash
 open http://homeassistant.local:8123
 # or if using custom hostname from Phase 1:
@@ -106,6 +108,7 @@ open http://ha-rpi.local:8123
 ### Option B: Via Direct IP
 
 If hostname doesn't resolve, find the Pi's IP:
+
 ```bash
 # From your router admin page, or:
 arp-scan -l  # Linux/macOS (requires arp-scan utility)
@@ -116,6 +119,7 @@ nmap -sn 192.168.1.0/24 | grep -A 5 "Raspberry"
 ```
 
 Once you have the IP (e.g., 192.168.1.10):
+
 ```bash
 open http://192.168.1.10:8123
 ```
@@ -123,6 +127,7 @@ open http://192.168.1.10:8123
 ### Expected First Boot UI
 
 You should see:
+
 - Home Assistant loading screen
 - After ~2-3 min: "Getting things ready" onboarding prompt
 - After ~5 min: Onboarding form appears
@@ -160,6 +165,7 @@ You should see:
 ### 5.3 Share Diagnostics (Optional)
 
 Home Assistant prompts you to share analytics. Choose:
+
 - **Share**: Helps HA developers improve the system
 - **Don't share**: Opt out
 
@@ -222,6 +228,7 @@ SSH access allows you to manage HA from the command line later (useful for debug
 ### 7.2 Test SSH Access
 
 From your development machine:
+
 ```bash
 ssh root@192.168.1.10
 # or
@@ -229,6 +236,7 @@ ssh root@ha-rpi.local
 ```
 
 You may be prompted for a password (HA generates one initially). Once logged in, test:
+
 ```bash
 ha core logs   # Show HA logs from CLI
 docker ps      # List running containers
@@ -243,7 +251,7 @@ df -h          # Show disk usage
 
 Create a file `deployment-notes-phase2.txt` or similar:
 
-```
+```text
 === PHASE 2 COMPLETION ===
 Date: YYYY-MM-DD
 HA Version: [from Settings > System > About]
@@ -285,20 +293,24 @@ Notes/Issues:
 ### HA UI Not Reachable
 
 **Check 1**: Is the Raspberry Pi powered on?
+
 - Look for green LED activity
 - Wait full 10 minutes on first boot
 
 **Check 2**: Network connectivity
+
 ```bash
 ping 192.168.1.10
 # If no response, Raspberry Pi may not have network
 ```
 
 **Check 3**: Is the SD card properly flashed?
+
 - Eject and reinsert to reseat
 - Try re-flashing if errors persist
 
 **Check 4**: Try hostname vs. IP
+
 ```bash
 ping homeassistant.local vs. ping 192.168.1.10
 # One may work while other doesn't (mDNS availability)
@@ -329,6 +341,7 @@ ping homeassistant.local vs. ping 192.168.1.10
 - View logs for crash messages
 - Allow 2–3 minutes before concluding HA is crashed
 - Power cycle Raspberry Pi if stuck:
+
   ```bash
   ssh root@ha-rpi.local
   sudo systemctl reboot

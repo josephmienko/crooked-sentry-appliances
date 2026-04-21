@@ -8,7 +8,7 @@ This directory contains Home Assistant configuration notes and snippets for the 
 
 ## Directory Structure
 
-```
+```txt
 homeassistant/
 ├── README.md                    # This file
 ├── add-ons/                     # Add-on configuration guides
@@ -69,6 +69,7 @@ cat /config/automations.yaml
 ## Phase 2 Setup Notes
 
 HA OS was installed via Phase 2 with:
+
 - Local owner account (no SSO)
 - Timezone configured
 - SSH access enabled
@@ -82,6 +83,7 @@ See [../docs/02-ha-os-install.md](../docs/02-ha-os-install.md) for full Phase 2 
 See [add-ons/mosquitto-setup.md](add-ons/mosquitto-setup.md) for detailed configuration.
 
 **Quick start**:
+
 1. Settings > Add-ons > Add-on Store > Search "Mosquitto"
 2. Install official Community Mosquitto
 3. Configure users and start
@@ -94,6 +96,7 @@ See [add-ons/mosquitto-setup.md](add-ons/mosquitto-setup.md) for detailed config
 See [integrations/frigate-integration.md](integrations/frigate-integration.md) for setup.
 
 **Quick start**:
+
 1. Frigate running on OptiPlex (Phase 5 complete)
 2. Settings > Devices & Services > Create Integration > Frigate
 3. Enter API URL: `http://192.168.1.20:5000`
@@ -102,6 +105,7 @@ See [integrations/frigate-integration.md](integrations/frigate-integration.md) f
 ## Future Additions
 
 Once core phases are complete, we may add:
+
 - Custom automations (Phase 8+)
 - Dashboard configurations
 - Scene setup
@@ -158,10 +162,10 @@ df -h /
 
 ## Documentation References
 
-- **Home Assistant**: https://www.home-assistant.io/
-- **HA OS**: https://github.com/home-assistant/operating-system
-- **HA CLI**: https://github.com/home-assistant/cli
-- **Mosquitto Add-on**: https://github.com/home-assistant/addons/tree/master/mosquitto
+- **Home Assistant**: [home-assistant.io](https://www.home-assistant.io/)
+- **HA OS**: [github.com/home-assistant/operating-system](https://github.com/home-assistant/operating-system)
+- **HA CLI**: [github.com/home-assistant/cli](https://github.com/home-assistant/cli)
+- **Mosquitto Add-on**: [github.com/home-assistant/addons](https://github.com/home-assistant/addons/tree/master/mosquitto)
 
 ---
 

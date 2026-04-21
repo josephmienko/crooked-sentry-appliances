@@ -1,13 +1,14 @@
 # Phase 5: Frigate Docker Compose Setup
 
-**Duration**: ~1–2 hours  
+**Duration**: ~1–2 hours
 **Goal**: Deploy Frigate NVR on OptiPlex via Docker Compose with basic configuration and validation.
 
 ## Overview
 
 Frigate is a realtime object detection NVR that uses YOLO models to detect objects in video streams. Phase 5 deploys the core service; camera setup happens when you add cameras.
 
-**Prerequisites**: 
+**Prerequisites**:
+
 - Phase 3 (OptiPlex Linux + Docker) complete
 - Phase 4 (MQTT setup) complete
 - Docker Compose working on OptiPlex
@@ -252,11 +253,12 @@ curl http://192.168.1.20:5000/api/version
 
 Open browser to:
 
-```
+```text
 http://192.168.1.20:5000
 ```
 
 Expected:
+
 - Frigate dashboard loads
 - Shows "No cameras" or placeholder camera (disabled)
 - UI responsive and functional
@@ -294,7 +296,7 @@ mosquitto_sub -h 192.168.1.10 -u frigate -P <frigate-password> -t "frigate/#" -v
 - [ ] `docker compose up -d` successful
 - [ ] `docker compose ps` shows frigate container running
 - [ ] Frigate API responds: `curl http://192.168.1.20:5000/api/version`
-- [ ] Frigate Web UI accessible: http://192.168.1.20:5000
+- [ ] Frigate Web UI accessible: [192.168.1.20:5000](http://192.168.1.20:5000)
 - [ ] MQTT connection established (logs show "Connected" message)
 - [ ] No container restart loops or errors
 

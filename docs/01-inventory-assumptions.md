@@ -87,7 +87,7 @@ Fill in the actual values you'll use. **Do not commit sensitive values** (passwo
 
 #### Primary Appliance (Raspberry Pi + Home Assistant OS)
 
-```
+```txt
 HA_RPI_IP=____________________
 HA_RPI_HOSTNAME=____________________
 HA_RPI_DOMAIN=____________________
@@ -96,6 +96,7 @@ HA_RPI_SSH_USER=____________________
 ```
 
 **Test**: From your development machine, run:
+
 ```bash
 ping <HA_RPI_IP>
 # Expected: Replies received
@@ -109,7 +110,7 @@ ping <HA_RPI_HOSTNAME>.<HA_RPI_DOMAIN>
 
 #### Analytics Appliance (OptiPlex 3080 + Docker)
 
-```
+```txt
 OPTIPLEX_IP=____________________
 OPTIPLEX_HOSTNAME=____________________
 OPTIPLEX_DOMAIN=____________________
@@ -118,6 +119,7 @@ OPTIPLEX_SSH_USER=____________________
 ```
 
 **Test**: From your development machine:
+
 ```bash
 ping <OPTIPLEX_IP>
 # Expected: Replies received
@@ -131,7 +133,7 @@ ssh <OPTIPLEX_SSH_USER>@<OPTIPLEX_IP> "docker ps"
 
 #### MQTT Broker (on Raspberry Pi, via HA add-on)
 
-```
+```txt
 MQTT_HOST=<HA_RPI_IP>
 MQTT_PORT=1883
 MQTT_USER=homeassistant
@@ -144,7 +146,7 @@ MQTT_PASSWORD=____________________ # Store in secrets file
 
 #### Frigate API (on OptiPlex)
 
-```
+```txt
 FRIGATE_HOST=<OPTIPLEX_IP>
 FRIGATE_API_PORT=5000
 FRIGATE_RTSP_PORT=9001
@@ -156,7 +158,7 @@ FRIGATE_RTSP_PORT=9001
 
 ### Network Topology (Diagram for Reference)
 
-```
+```txt
 ┌─────────────────────────────────────────────────┐
 │  Your Local Network                             │
 │  (e.g., 192.168.1.0/24)                         │
@@ -244,6 +246,7 @@ Result: [ ] Pass / [ ] Fail / [ ] N/A
 Save this filled-out checklist as a reference. When ready to use it:
 
 1. Copy `examples/network-config.example.env` to your working area:
+
    ```bash
    cp examples/network-config.example.env my-network-config.env
    ```
@@ -251,6 +254,7 @@ Save this filled-out checklist as a reference. When ready to use it:
 2. Fill in your actual IPs and hostnames (from this checklist)
 
 3. Create a **not-checked-in** secrets file for sensitive values:
+
    ```bash
    # Never commit this file
    cat > secrets.env << 'EOF'
@@ -261,6 +265,7 @@ Save this filled-out checklist as a reference. When ready to use it:
    ```
 
 4. Source both files when needed (during deployment phases):
+
    ```bash
    source my-network-config.env
    source secrets.env
@@ -279,23 +284,27 @@ All Phase 1 validation checks passed? ✅
 ## Troubleshooting Phase 1
 
 ### Cannot ping appliances
+
 - Verify they're powered on and connected to the network
 - Check router/switch port and cable connections
 - Confirm network CIDR (e.g., 192.168.1.x assumes 192.168.1.0/24)
 - Try pinging router gateway first to confirm network works
 
 ### SSH fails
+
 - Confirm SSH service is running: `sudo systemctl status ssh` (Linux) or check HA Settings > System > Terminal
 - Check firewall rules on both machines
 - Verify username/port in SSH command
 - Try: `ssh -vvv user@host` for debug output
 
 ### Docker not found on OptiPlex
+
 - Confirm Docker installation steps were completed
 - Try: `sudo docker ps` (may need sudo)
 - Relogin after `usermod -aG docker` to apply group membership
 
 ### Hostname resolution fails
+
 - Use IP directly if mDNS unavailable (e.g., 192.168.1.10 instead of ha-rpi.local)
 - Confirm router/DNS supports mDNS (.local domains)
 - On Linux, ensure `avahi-daemon` is running for mDNS

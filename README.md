@@ -1,116 +1,239 @@
-# Crooked Sentry Appliances
+<p align="center">
+  <picture>
+    <!-- Desktop Dark Mode -->
+    <source media="(min-width: 769px) and (prefers-color-scheme: dark)" srcset="_includes/header-wide-dark-inline.svg">
+    <!-- Desktop Light Mode -->
+    <source media="(min-width: 769px) and (prefers-color-scheme: light)" srcset="_includes/header-wide-light-inline.svg">
+    <!-- Mobile Dark Mode -->
+    <source media="(max-width: 768px) and (prefers-color-scheme: dark)" srcset="_includes/header-stacked-dark-inline.svg">
+    <!-- Mobile Light Mode -->
+    <source media="(max-width: 768px) and (prefers-color-scheme: light)" srcset="_includes/header-stacked-light-inline.svg">
+    <img src="_includes/header-wide-light-inline.svg" alt="crooked-sentry-appliances" />
+  </picture>
+</p>
 
-A clean, phased setup for a Home Assistant appliance infrastructure focused on Raspberry Pi (HA OS) + Dell OptiPlex (Frigate) integration.
+<p align="left">
+  Part of the Crooked Sentry universe&nbsp;|&nbsp;
+  <a href="https://github.com/josephmienko/crooked-sentry-appliances/actions/workflows/validate.yml"><img src="https://github.com/josephmienko/crooked-sentry-appliances/actions/workflows/validate.yml/badge.svg" alt="Validate" align="absmiddle" /></a>&nbsp;
+  <a href="https://app.codecov.io/gh/josephmienko/crooked-sentry-appliances"><img src="https://codecov.io/gh/josephmienko/crooked-sentry-appliances/badge.svg" alt="Codecov test coverage" align="absmiddle" /></a>
+</p>
 
-## Project Goal
+## Overview
 
-Build a narrowly-focused, production-ready Home Assistant ecosystem with:
-- **Primary appliance**: Raspberry Pi running Home Assistant OS
-- **Video analytics**: Dell OptiPlex 3080 running Frigate via Docker Compose
-- **Connectivity**: MQTT broker (HA Mosquitto add-on preferred) for inter-system communication
-- **Simplicity first**: Clean, documented, repeatable steps with no clever automation
-- **Future-ready**: Placeholder structure for phased additions (themes, auth, federated access)
+**crooked-sentry-appliances** is a cleanly-documented, phased setup for a home automation appliance infrastructure. It orchestrates a Raspberry Pi running Home Assistant OS with a Dell OptiPlex 3080 running Frigate video analytics, connected via MQTT.
 
-## Hardware Assumptions (Phase 1)
+The goal is production-ready simplicity: narrowly-focused, repeatable setup steps with no clever automation—infrastructure you can understand, modify, and operate without external dependencies.
 
-| Role | Hardware | OS | Services |
-|------|----------|----|----|
-| Primary | Raspberry Pi 4B/5 | Home Assistant OS | Home Assistant, Mosquitto add-on |
-| Analytics | Dell OptiPlex 3080 | Ubuntu/Debian Linux | Docker, Frigate, supporting services |
-| Development | MacBook Pro | macOS | (NOT included in Phase 1) |
+---
 
-## Repo Structure
+## Runtime Model
+
+- **Raspberry Pi 4/5** (HA OS) – **Primary appliance**
+  - Home Assistant Core
+  - Mosquitto MQTT add-on (broker)
+  - Frigate integration
+
+- **OptiPlex 3080** (Linux + Docker) – **Analytics appliance**
+  - Frigate NVR (Docker Compose)
+  - Video stream processing
+  - MQTT client connection to HA
+
+- **MQTT** – **Inter-appliance messaging**
+  - Lives on HA OS via Mosquitto add-on (Phase 1)
+  - Future phases may move to dedicated broker
+  - No encryption in Phase 1 (internal network only)
+
+---
+
+## Hardware Roles
+
+| Role | Hardware | OS | Primary Services |
+| --- | --- | --- | --- |
+| **Primary** | Raspberry Pi 4B/5 | Home Assistant OS | Home Assistant, Mosquitto add-on |
+| **Analytics** | Dell OptiPlex 3080 | Ubuntu 22.04 LTS / Debian 12 | Docker, Frigate, supporting services |
+| **Development** | MacBook Pro, Linux PC, Windows PC | macOS, Linux, Windows | (Phase 1: not included in appliance setup) |
+
+---
+
+## Repo Layout
 
 ```
 crooked-sentry-appliances/
 ├── README.md                               # This file
-├── docs/
-│   ├── setup-phases.md                     # Detailed phase roadmap
+├── _config.yml                             # GitHub Pages config
+├── _includes/                              # Branding & Pages customization
+│   ├── header-wide-dark-inline.svg
+│   ├── header-wide-light-inline.svg
+│   ├── header-stacked-dark-inline.svg
+│   ├── header-stacked-light-inline.svg
+│   └── head-custom.html
+│
+├── docs/                                   # Detailed phase guides
 │   ├── prerequisites.md                    # Hardware/network assumptions
-│   ├── 01-inventory-assumptions.md         # Phase 1 planning checklist
-│   ├── 02-ha-os-install.md                 # Phase 2: Raspberry Pi setup
-│   ├── 03-optiplex-linux-docker.md         # Phase 3: OptiPlex baseline
-│   ├── 04-mqtt-setup.md                    # Phase 4: MQTT broker decision
-│   ├── 05-frigate-compose.md               # Phase 5: Frigate Docker setup
-│   ├── 06-ha-frigate-integration.md        # Phase 6: HA integration config
-│   ├── 07-smoke-tests.md                   # Phase 7: Validation checklist
-│   └── FUTURE-08-hacs-themes-branding.md   # Phase 8 placeholder
-├── examples/
-│   ├── docker-compose-template.yml         # Example Frigate compose file
-│   ├── mosquitto-v4-aclfile.example.txt    # MQTT ACL example
-│   ├── frigate-config.example.yml           # Minimal Frigate config
-│   ├── network-config.example.env           # Network assumptions/template
-│   └── ha-secrets-template.yaml             # HA secrets file template
-├── scripts/
-│   ├── README.md                           # Script usage guide
-│   ├── validate-network-connectivity.sh    # Test DNS/IP reachability
-│   └── generate-secrets-template.sh        # Helper for secrets generation
-├── compose/
+│   ├── setup-phases.md                     # Master roadmap
+│   ├── 01-inventory-assumptions.md         # Phase 1: Inventory checklist
+│   ├── 02-ha-os-install.md                 # Phase 2: HA OS setup
+│   ├── 03-optiplex-linux-docker.md         # Phase 3: Docker host
+│   ├── 04-mqtt-setup.md                    # Phase 4: MQTT broker
+│   ├── 05-frigate-compose.md               # Phase 5: Frigate NVR
+│   ├── 06-ha-frigate-integration.md        # Phase 6: HA + Frigate
+│   ├── 07-smoke-tests.md                   # Phase 7: Validation
+│   └── FUTURE-08-hacs-themes-branding.md   # Phase 8 (placeholder)
+│
+├── examples/                               # Configuration templates
+│   ├── network-config.example.env          # Network topology template
+│   ├── frigate-config.example.yml          # Minimal Frigate config
+│   ├── mosquitto-v4-aclfile.example.txt    # MQTT access control
+│   └── ha-secrets-template.yaml            # HA secrets file template
+│
+├── compose/                                # Docker Compose setup
 │   └── optiplex-frigate/
-│       ├── docker-compose.yml              # Frigate + supporting services
-│       ├── .env.example                    # Environment template
-│       └── README.md                       # Compose-specific notes
-├── homeassistant/
-│   ├── README.md                           # HA OS configuration notes
-│   ├── add-ons/                            # Add-on configuration snippets
+│       ├── docker-compose.yml              # Frigate service definition
+│       ├── .env.example                    # Environment variables
+│       └── README.md                       # Frigate operations guide
+│
+├── homeassistant/                          # HA configuration guides
+│   ├── README.md                           # HA setup overview
+│   ├── add-ons/
 │   │   └── mosquitto-setup.md              # Mosquitto add-on config
-│   ├── integrations/                       # Integration setup guides
-│   │   └── frigate-integration.md          # Frigate integration steps
-│   └── automation-examples/                # Future automation snippets
-└── .gitignore                              # Secrets and environment files
-
+│   └── integrations/
+│       └── frigate-integration.md          # Frigate integration
+│
+├── scripts/                                # Helper scripts
+│   ├── README.md                           # Script documentation
+│   ├── validate-network-connectivity.sh    # Network health checks
+│   └── generate-secrets-template.sh        # Secrets generation
+│
+└── .gitignore                              # Security: never commit secrets
 ```
-
-## Quick Start (High Level)
-
-1. **Read**: [prerequisites.md](docs/prerequisites.md) to confirm hardware/network
-2. **Plan**: [setup-phases.md](docs/setup-phases.md) overview
-3. **Phase 1**: [01-inventory-assumptions.md](docs/01-inventory-assumptions.md) – gather info and validate network
-4. **Phase 2**: [02-ha-os-install.md](docs/02-ha-os-install.md) – Raspberry Pi OS setup
-5. **Phase 3**: [03-optiplex-linux-docker.md](docs/03-optiplex-linux-docker.md) – OptiPlex Linux + Docker baseline
-6. **Phase 4**: [04-mqtt-setup.md](docs/04-mqtt-setup.md) – MQTT broker setup
-7. **Phase 5**: [05-frigate-compose.md](docs/05-frigate-compose.md) – Frigate Docker Compose
-8. **Phase 6**: [06-ha-frigate-integration.md](docs/06-ha-frigate-integration.md) – HA integration
-9. **Phase 7**: [07-smoke-tests.md](docs/07-smoke-tests.md) – Validation checks
-10. **Later**: Themes, branding, federated access (documented as placeholders)
-
-## Key Principles
-
-- **No hardcoding**: Secrets, IPs, and hostnames in example files with clear templating
-- **Safety first**: Documented assumptions, validation steps after each phase
-- **Repeatable**: Prefer documented steps over one-liners or clever scripts
-- **Local fallback**: Always keep a local HA owner account (no SSO-only initial setup)
-- **Future-ready**: Clear placeholders for future complexity (HACS, themes, auth)
-
-## Future Integrations (Not Phase 1)
-
-These repos will be integrated in later phases:
-- `lovelace-m3-core-cards` – Material Design 3 core components
-- `lovelace-m3-lighting-dashboard` – M3 lighting UI
-- `lovelace-frigate-event-feed` – Frigate event integration
-- `ha-material-theme` – Theme system
-- `ha-branding-overrides` – Custom branding
-- `ha-federated-access` – Federated auth (SSO/OIDC)
-
-## Support & Validation
-
-After each phase, refer to the included validation checklist:
-- Network reachability
-- Service startup checks
-- Integration status verification
-- Backup and rollback readiness
-
-See [07-smoke-tests.md](docs/07-smoke-tests.md) for comprehensive validation steps.
-
-## Contributing
-
-When adding to this setup:
-1. Keep the phase structure intact
-2. Document assumptions (IPs, hostnames, credentials)
-3. Provide example config files (never hardcode secrets)
-4. Include validation steps
-5. Test repeatability
 
 ---
 
-**Status**: Phase 1 skeleton created. Ready for inventory and prerequisites review.
+## Configuration Contract
+
+### Network Assumptions
+
+- **HA OS (Raspberry Pi)**: Static or DHCP-reserved IP (e.g., `192.168.1.10`)
+- **OptiPlex (Frigate)**: Static or DHCP-reserved IP (e.g., `192.168.1.20`)
+- **MQTT broker**: Accessible to both appliances (internal network, no external exposure in Phase 1)
+- **Development machine**: Network-reachable test client for validation
+
+### Environment Contract
+
+All credentials stored in:
+- `examples/secrets.env` (non-committed template)
+- HA's `/config/secrets.yaml`
+- OptiPlex's `.env` for Docker Compose
+
+Never commit real secrets. Use `.gitignore` to prevent leaks.
+
+### Integration Contract
+
+- **HA ↔ Frigate**: Official HA Frigate integration (HTTP API)
+- **HA ↔ MQTT**: Auto-discovery via standard HA MQTT integration
+- **Frigate ↔ MQTT**: Frigate publishes events and stats to MQTT topics
+
+---
+
+## Setup Phases
+
+This repo documents **9 phases**, but Phase 1–7 are the **core appliance setup** (all tested and working). Phases 8–9 are future extensions (placeholders only).
+
+### Core Phases (1–7)
+
+| Phase | Duration | Focus | Status |
+| --- | --- | --- | --- |
+| **1** | 30 min | Inventory & network assumptions | ✅ Complete |
+| **2** | 1–2 hrs | Raspberry Pi: HA OS install & onboarding | ✅ Complete |
+| **3** | 1–2 hrs | OptiPlex: Linux + Docker baseline | ✅ Complete |
+| **4** | 30–60 min | MQTT broker: Mosquitto add-on | ✅ Complete |
+| **5** | 1–2 hrs | Frigate NVR: Docker Compose deployment | ✅ Complete |
+| **6** | 30–60 min | Home Assistant: Frigate integration | ✅ Complete |
+| **7** | 1 hr | Smoke tests: Validation & backups | ✅ Complete |
+
+**See [setup-phases.md](docs/setup-phases.md) for the complete roadmap including Phases 8–9.**
+
+### Quick Start
+
+1. **Review prerequisites**: [prerequisites.md](docs/prerequisites.md)
+2. **Start Phase 1**: [01-inventory-assumptions.md](docs/01-inventory-assumptions.md)
+3. **Follow phases sequentially** through Phase 7
+4. **Validate** with Phase 7 smoke tests
+
+---
+
+## Validation
+
+Each phase includes a **validation checklist**. After Phase 7, you have:
+
+- ✅ Both appliances powered on and network-reachable
+- ✅ Home Assistant OS running and accessible
+- ✅ Frigate NVR deployed and responding to API
+- ✅ MQTT broker connected and operational
+- ✅ HA + Frigate integration loaded and showing entities
+- ✅ Full system restart tested and successful
+- ✅ Backup and rollback procedures documented
+
+**See [07-smoke-tests.md](docs/07-smoke-tests.md) for comprehensive validation steps.**
+
+---
+
+## Future Integrations (Phases 8–9)
+
+These are **placeholders** and **not required for Phase 1**:
+
+### Phase 8: HACS, Themes & Branding (Split Repo: `ha-branding-overrides`)
+
+- Custom Material Design 3 theme
+- Lovelace card integrations
+- UI customization
+
+### Phase 9: Federated Access & Auth (Split Repo: `ha-federated-access`)
+
+- OAuth2 / OIDC integration
+- NetBird VPN (future)
+- AuthentiK SSO (future)
+
+---
+
+## Out Of Scope For Initial Setup
+
+The following are **explicitly out of scope** for Phase 1–7:
+
+- **Federated authentication (SSO)** – Phase 9 only
+- **Remote access via NetBird** – Phase 9 only
+- **TLS/SSL encryption** – Phase 1 assumes internal network only
+- **Multi-zone HA setup** – Phase 1 is single-home
+- **GPU acceleration** – Future optimization (Frigate can run without)
+- **Custom automations** – Phase 1 establishes baseline infrastructure
+- **Split repos as dependencies** – They're decoupled features, not requirements
+
+---
+
+## Key Principles
+
+- **Narrowly-focused**: Raspberry Pi + Frigate. Nothing more.
+- **Production-ready**: Works reliably after Phase 7. No toy setup.
+- **Documented**: Every step explains what, why, and how to troubleshoot.
+- **Repeatable**: Same steps produce same result every time.
+- **No clever automation**: Prefer documented steps you understand and can modify.
+- **Version-controlled**: All infrastructure-as-code in git (except secrets).
+- **Vendor-independent**: Uses open-source projects (HA, Frigate, Docker, Mosquitto).
+
+---
+
+## Documentation References
+
+- **Setup Phases**: [setup-phases.md](docs/setup-phases.md)
+- **Phase Details**: [docs/](docs/) directory
+- **Home Assistant**: https://www.home-assistant.io/
+- **Frigate**: https://docs.frigate.video/
+- **Mosquitto**: https://mosquitto.org/
+
+---
+
+## Project Status
+
+**Phase 1–7 complete and documented.** Ready to deploy.
+
+Phases 8–9 are future extensions (split into separate repos). Start with Phase 1 when ready.

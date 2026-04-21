@@ -40,6 +40,7 @@ keyfile: privkey.pem
 ```
 
 **Replace**:
+
 - `<your-secure-password>` with a strong password (Phase 1 secrets.env)
 - `<frigate-password>` with Frigate's MQTT password
 
@@ -47,7 +48,7 @@ keyfile: privkey.pem
 
 ### 2. Start the Add-on
 
-**Settings > Add-ons > Mosquitto Broker > Start**
+Settings > Add-ons > Mosquitto Broker > Start
 
 Or via terminal:
 
@@ -58,7 +59,7 @@ ha addon start community_mosquitto
 
 Wait for startup. Should show:
 
-```
+```txt
 1 client(s) connected
 ```
 
@@ -147,6 +148,7 @@ You should see the message in the HA terminal.
 For fine-grained permission control, configure an ACL file:
 
 1. **Create ACL file** on HA:
+
    ```bash
    ssh root@192.168.1.10
    
@@ -163,6 +165,7 @@ For fine-grained permission control, configure an ACL file:
    ```
 
 2. **Update Configuration**:
+
    ```yaml
    # In Mosquitto config (HA UI > Configuration)
    aclfile: /config/mosquitto/aclfile.txt
@@ -174,7 +177,7 @@ See [../../examples/mosquitto-v4-aclfile.example.txt](../../examples/mosquitto-v
 
 ## Enable Auto-Start
 
-**Settings > Add-ons > Mosquitto Broker > Advanced options**
+Settings > Add-ons > Mosquitto Broker > Advanced options
 
 - **Auto-start**: Enabled (checked)
 - **Auto-update**: Optional (checked to auto-update)
@@ -185,7 +188,7 @@ Ensures Mosquitto starts automatically after HA restarts.
 
 ### View Mosquitto Logs
 
-**Settings > Add-ons > Mosquitto Broker > Logs**
+Settings > Add-ons > Mosquitto Broker > Logs
 
 Or via terminal:
 
@@ -197,25 +200,28 @@ ha addon logs community_mosquitto
 ### Common Issues
 
 **Connection refused (port 1883)**:
+
 - Verify add-on is running
 - Check firewall allows port 1883 (should be open internally)
 - Verify hostname/IP correct (use 192.168.1.10 if mDNS unavailable)
 
 **Auth failed**:
+
 - Verify username/password match configuration
 - Check for typos
 - Restart add-on after configuration changes
 
 **Add-on crashes on start**:
+
 - Check logs for YAML syntax errors
 - Verify ACL file format (if using ACL)
 - Revert configuration to defaults and restart
 
 ## Reference
 
-- **Mosquitto Add-on**: https://github.com/home-assistant/addons/tree/master/mosquitto
-- **MQTT 5.0 Spec**: https://mqtt.org/mqtt-specification-v5-0/
-- **Frigate MQTT**: https://docs.frigate.video/configuration/mqtt
+- **Mosquitto Add-on**: <https://github.com/home-assistant/addons/tree/master/mosquitto>
+- **MQTT 5.0 Spec**: <https://mqtt.org/mqtt-specification-v5-0/>
+- **Frigate MQTT**: <https://docs.frigate.video/configuration/mqtt>
 
 ---
 
