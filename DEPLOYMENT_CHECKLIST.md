@@ -12,7 +12,7 @@
 ### 📋 Documentation (9 Files)
 
 | Document | Purpose | Scope |
-|----------|---------|-------|
+| --- | --- | --- |
 | README.md | Project overview & quick start | Full project |
 | prerequisites.md | Hardware/network requirements | Phase 0 (pre-phase) |
 | setup-phases.md | High-level roadmap (all 9 phases) | Project planning |
@@ -31,7 +31,7 @@
 ### 🔧 Example Configuration Files (4 Files)
 
 | File | Purpose |
-|------|---------|
+| --- | --- |
 | examples/network-config.example.env | Network topology template |
 | examples/frigate-config.example.yml | Frigate configuration template |
 | examples/mosquitto-v4-aclfile.example.txt | MQTT ACL (access control) template |
@@ -40,7 +40,7 @@
 ### 🐳 Docker Compose Setup (3 Files)
 
 | File | Purpose |
-|------|---------|
+| --- | --- |
 | compose/optiplex-frigate/docker-compose.yml | Frigate service definition |
 | compose/optiplex-frigate/.env.example | Frigate environment template |
 | compose/optiplex-frigate/README.md | Frigate operations guide |
@@ -48,7 +48,7 @@
 ### ⚙️ Helper Scripts (3 Files)
 
 | Script | Purpose | Status |
-|--------|---------|--------|
+| --- | --- | --- |
 | scripts/validate-network-connectivity.sh | Network health checks | Production-ready |
 | scripts/generate-secrets-template.sh | Secure secrets file generation | Production-ready |
 | scripts/README.md | Script documentation | Ready |
@@ -56,7 +56,7 @@
 ### 🏠 Home Assistant Configuration Guides (3 Files)
 
 | Document | Purpose |
-|----------|---------|
+| --- | --- |
 | homeassistant/README.md | HA OS configuration overview |
 | homeassistant/add-ons/mosquitto-setup.md | Mosquitto installation & config |
 | homeassistant/integrations/frigate-integration.md | HA-Frigate integration steps |
@@ -64,14 +64,14 @@
 ### 📁 Configuration & Structure (1 File)
 
 | File | Purpose |
-|------|---------|
+| --- | --- |
 | .gitignore | Security-first git exclusions |
 
 ---
 
 ## Project Structure
 
-```
+```bash
 crooked-sentry-appliances/
 ├── README.md                                    # Main project intro
 ├── .gitignore                                   # Security: never commit secrets
@@ -119,30 +119,35 @@ crooked-sentry-appliances/
 ## Key Features of This Skeleton
 
 ### ✅ Security First
+
 - All secrets in `.env` templates (never committed)
 - `.gitignore` pre-configured to prevent credential leaks
 - Helper script for secure secrets generation
 - IA documentation throughout
 
 ### ✅ Comprehensive Documentation
+
 - 9 complete setup phases with step-by-step guides
 - 12,000+ words of clear, actionable documentation
 - Troubleshooting sections in each phase
 - Validation checklists after each phase
 
 ### ✅ Real Production Ready
+
 - Docker Compose with resource limits and health checks
 - Example configurations are minimally functional (can run immediately)
 - Network validation scripts to catch issues early
 - Backup and recovery procedures documented
 
 ### ✅ Phased Approach
+
 - Phases 1–7: Core appliance infrastructure (repeatable, documented, safe)
 - Phases 8–9: Extensibility (HACS, themes, federated auth)
 - Clear separation of concerns (HA OS vs. Docker appliance)
 - Future placeholders for planned features
 
 ### ✅ No Vendor Lock-in
+
 - Standard Docker Compose syntax (works on any Linux host)
 - Home Assistant OS (open-source, reproducible)
 - Frigate (open-source NVR)
@@ -156,18 +161,21 @@ crooked-sentry-appliances/
 ### Immediate (Today)
 
 1. **Review the high-level roadmap**:
+
    ```bash
    cat README.md
    cat docs/setup-phases.md
    ```
 
 2. **Check prerequisites**:
+
    ```bash
    cat docs/prerequisites.md
    # Verify you have all hardware and tools
    ```
 
 3. **Start Phase 1** (30 minutes):
+
    ```bash
    cat docs/01-inventory-assumptions.md
    # Fill out the inventory checklist
@@ -181,12 +189,14 @@ crooked-sentry-appliances/
    - Network IP range and DNS
 
 2. **Run network validation** (after Phase 1):
+
    ```bash
    source examples/network-config.example.env
    ./scripts/validate-network-connectivity.sh
    ```
 
 3. **Generate secrets** (after Phase 1):
+
    ```bash
    ./scripts/generate-secrets-template.sh
    # Creates secure secrets.env with your credentials
@@ -195,6 +205,7 @@ crooked-sentry-appliances/
 ### Begin Phase 2
 
 Once Phase 1 complete, follow:
+
 ```bash
 cat docs/02-ha-os-install.md
 # Flash HA OS to Raspberry Pi and complete onboarding
@@ -205,6 +216,7 @@ cat docs/02-ha-os-install.md
 ## Usage Video / Tutorial (Optional Future)
 
 This repo is designed to be **self-documenting and followable solo**, but consider recording a video walkthrough once Phase 1–7 is complete. Great reference for:
+
 - Team onboarding
 - Troubleshooting help from community
 - Backup strategy documentation
@@ -213,22 +225,28 @@ This repo is designed to be **self-documenting and followable solo**, but consid
 
 ## Support & Troubleshooting
 
-### If you get stuck:
+### If you get stuck
 
 1. **Check the relevant phase doc** – most issues are documented
 2. **Run validation scripts**:
+
    ```bash
    ./scripts/validate-network-connectivity.sh
    ```
+
 3. **Review logs**:
+
+   ```bash
    - HA: `ssh root@192.168.1.10 && ha core logs`
    - Frigate: `ssh user@192.168.1.20 && docker compose logs frigate`
+   ```
+
 4. **Rollback gracefully**: Each phase has documented rollback steps
 
-### For community support:
+### For community support
 
-- **Home Assistant**: https://community.home-assistant.io/
-- **Frigate**: https://github.com/blakeblackshear/frigate (discussions)
+- **Home Assistant**: [community.home-assistant.io](https://community.home-assistant.io/)
+- **Frigate**: [github.com/blakeblackshear/frigate](https://github.com/blakeblackshear/frigate) (discussions)
 - **This project**: [Your repo if public]
 
 ---
@@ -260,7 +278,7 @@ This repo is designed to be **self-documenting and followable solo**, but consid
 ## Project Statistics
 
 | Metric | Value |
-|--------|-------|
+| --- | --- |
 | **Total Files Created** | 26 |
 | **Documentation Pages** | 12 |
 | **Configuration Examples** | 4 |
@@ -321,6 +339,7 @@ git log --oneline | head -5
 ✅ **Project skeleton complete and production-ready.**
 
 You now have:
+
 - **Comprehensive documentation** for all 7 core phases
 - **Working Docker Compose** files for Frigate
 - **Configuration examples** with clear templates
@@ -332,4 +351,4 @@ You now have:
 
 ---
 
-**Happy building! 🚀**
+Happy building! 🚀

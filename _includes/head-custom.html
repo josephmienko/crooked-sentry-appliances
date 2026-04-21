@@ -1,6 +1,66 @@
 <style>
-  .markdown-body > h1:first-of-type {
+  .markdown-body > h1 {
     display: none;
+  }
+
+  .markdown-body > picture[align="center"] {
+    display: block;
+    line-height: 0;
+    margin: 0 auto 0.75rem;
+    text-align: center;
+  }
+
+  .markdown-body > picture[align="center"] img {
+    display: block;
+    margin: 0 auto;
+  }
+
+  .markdown-body > p:has(> .cs-repo-meta) {
+    margin: 0 0 1.5rem;
+  }
+
+  .cs-repo-meta {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    font-weight: 600;
+    gap: 0.35rem 0.5rem;
+    justify-content: flex-start;
+    margin: 0;
+  }
+
+  .cs-repo-badges {
+    align-items: center;
+    display: inline-flex;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+    white-space: nowrap;
+  }
+
+  .cs-repo-badges a,
+  .cs-repo-badges img {
+    display: inline-flex;
+  }
+
+  @media (max-width: 768px) {
+    .markdown-body > picture[align="center"] {
+      margin-bottom: 0.5rem;
+    }
+
+    .cs-repo-meta {
+      flex-direction: column;
+      gap: 0.55rem;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .cs-repo-meta-separator {
+      display: none;
+    }
+
+    .cs-repo-badges {
+      justify-content: center;
+    }
   }
 
   @media (prefers-color-scheme: dark) {

@@ -1,22 +1,23 @@
-<p align="center">
-  <picture>
-    <!-- Desktop Dark Mode -->
-    <source media="(min-width: 769px) and (prefers-color-scheme: dark)" srcset="_includes/header-wide-dark-inline.svg">
-    <!-- Desktop Light Mode -->
-    <source media="(min-width: 769px) and (prefers-color-scheme: light)" srcset="_includes/header-wide-light-inline.svg">
-    <!-- Mobile Dark Mode -->
-    <source media="(max-width: 768px) and (prefers-color-scheme: dark)" srcset="_includes/header-stacked-dark-inline.svg">
-    <!-- Mobile Light Mode -->
-    <source media="(max-width: 768px) and (prefers-color-scheme: light)" srcset="_includes/header-stacked-light-inline.svg">
-    <img src="_includes/header-wide-light-inline.svg" alt="crooked-sentry-appliances" />
-  </picture>
-</p>
-
-<p align="left">
-  Part of the Crooked Sentry universe&nbsp;|&nbsp;
-  <a href="https://github.com/josephmienko/crooked-sentry-appliances/actions/workflows/validate.yml"><img src="https://github.com/josephmienko/crooked-sentry-appliances/actions/workflows/validate.yml/badge.svg" alt="Validate" align="absmiddle" /></a>&nbsp;
-  <a href="https://app.codecov.io/gh/josephmienko/crooked-sentry-appliances"><img src="https://codecov.io/gh/josephmienko/crooked-sentry-appliances/badge.svg" alt="Codecov test coverage" align="absmiddle" /></a>
-</p>
+<h1><a href="https://josephmienko.github.io/crooked-sentry-appliances/">crooked-sentry-appliances</a></h1>
+<picture align="center">
+  <!-- Desktop Dark Mode -->
+  <source media="(min-width: 769px) and (prefers-color-scheme: dark)" srcset="assets/header-wide-dark-inline.svg">
+  <!-- Desktop Light Mode -->
+  <source media="(min-width: 769px) and (prefers-color-scheme: light)" srcset="assets/header-wide-light-inline.svg">
+  <!-- Mobile Dark Mode -->
+  <source media="(max-width: 768px) and (prefers-color-scheme: dark)" srcset="assets/header-stacked-dark-inline.svg">
+  <!-- Mobile Light Mode -->
+  <source media="(max-width: 768px) and (prefers-color-scheme: light)" srcset="assets/header-stacked-light-inline.svg">
+  <img src="assets/header-wide-light-inline.svg" alt="crooked-sentry-appliances">
+</picture>
+<b align="left" class="cs-repo-meta">
+  <span class="cs-repo-subtitle">Part of the Crooked Sentry universe</span>
+  <span class="cs-repo-meta-separator" aria-hidden="true">|</span>
+  <span class="cs-repo-badges">
+    <a href="https://github.com/josephmienko/crooked-sentry-appliances/actions/workflows/validate.yml"><img src="https://github.com/josephmienko/crooked-sentry-appliances/actions/workflows/validate.yml/badge.svg" alt="Validate" align="absmiddle" /></a>
+    <a href="https://app.codecov.io/gh/josephmienko/crooked-sentry-appliances"><img src="https://codecov.io/gh/josephmienko/crooked-sentry-appliances/badge.svg" alt="Codecov test coverage" align="absmiddle" /></a>
+  </span>
+</b>
 
 ## Overview
 
@@ -61,11 +62,12 @@ The goal is production-ready simplicity: narrowly-focused, repeatable setup step
 crooked-sentry-appliances/
 ├── README.md                               # This file
 ├── _config.yml                             # GitHub Pages config
-├── _includes/                              # Branding & Pages customization
+├── assets/                                 # Static assets (served by Pages)
 │   ├── header-wide-dark-inline.svg
 │   ├── header-wide-light-inline.svg
 │   ├── header-stacked-dark-inline.svg
-│   ├── header-stacked-light-inline.svg
+│   └── header-stacked-light-inline.svg
+├── _includes/                              # Jekyll/Pages includes only
 │   └── head-custom.html
 │
 ├── docs/                                   # Detailed phase guides

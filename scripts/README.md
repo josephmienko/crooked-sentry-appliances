@@ -11,11 +11,13 @@ This directory contains optional helper scripts to reduce manual work during set
 Performs comprehensive network checks to ensure both appliances are reachable and services are accessible.
 
 **Usage**:
+
 ```bash
 ./scripts/validate-network-connectivity.sh
 ```
 
 **What it does**:
+
 - Pings both appliances (Raspberry Pi and OptiPlex)
 - Tests SSH connectivity to each
 - Verifies HA UI is reachable
@@ -25,7 +27,8 @@ Performs comprehensive network checks to ensure both appliances are reachable an
 
 **Output**: Pass/fail for each test with troubleshooting hints
 
-**Prerequisites**: 
+**Prerequisites**:
+
 - Both appliances on network
 - SSH keys configured (or password prompt)
 - curl, ping, ssh available on development machine
@@ -37,11 +40,13 @@ Performs comprehensive network checks to ensure both appliances are reachable an
 Creates a starter secrets.env file with prompts for you to fill in secure values.
 
 **Usage**:
+
 ```bash
 ./scripts/generate-secrets-template.sh
 ```
 
 **What it does**:
+
 - Creates a template `secrets.env` file
 - Prompts for each required password/credential
 - Saves to `.env` (auto-excluded from git)

@@ -23,6 +23,8 @@ homeassistant/backups/
 *.html
 *_files/
 .quarto/
+# Exception: keep GitHub Pages custom head
+!_includes/head-custom.html
 
 # Docker & Compose
 docker-compose.override.yml
