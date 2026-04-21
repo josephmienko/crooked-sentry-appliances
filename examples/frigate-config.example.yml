@@ -1,0 +1,133 @@
+# Frigae Configuration Template
+# This is a MINIMAL, SAFE configuration for Phase 1
+# Cameras are disabled (enabled: false) until you explicitly add them
+
+logger:
+  default: info
+  logs:
+    frigate.record: debug
+    frigate.detect.process: debug
+
+# Database for storing events, snapshots metadata, etc.
+database:
+  path: /config/frigate.db
+
+# MQTT Configuration
+# Connects Frigate to HA via Mosquitto add-on
+mqtt:
+  enabled: true
+  host: 192.168.1.10           # Raspberry Pi (HA OS)
+  port: 1883
+  user: frigate
+  password: ${MQTT_PASSWORD}
+  topic_prefix: frigate
+
+# Video Processor (CPU-based by default; GPU optional)
+video:
+  fps: 30
+
+# Global camera detection defaults (can be overridden per-camera)
+detect:
+  enabled: true
+  width: 1280
+  height: 720
+  fps: 5
+  min_area: 0
+  max_area: 2147483647
+  threshold: 0.5
+  # Object tracking settings
+  # These are tuned for reasonable defaults; adjust for your environment
+  filters:
+    person:
+      min_area: 500
+      max_area: 24038400
+      threshold: 0.7
+    car:
+      min_area: 500
+      max_area: 24038400
+      threshold: 0.6
+
+# Recording settings (applies to all cameras unless overridden)
+record:
+  enabled: true
+  sync_recordings: true
+  retention:
+    days: 5
+    mode: all
+  events:
+    retention:
+      default: 10
+      mode: all
+    objects:
+      person: 14
+      car: 7
+
+# Audio processing (disabled for Phase 1)
+audio:
+  enabled: false
+
+# RTSP Configuration
+# go2rtc handles RTSP stream proxying
+rtsp:
+  enabled: true
+  listen: 0.0.0.0
+  port: 8554
+
+# Snapshots
+snapshots:
+  enabled: true
+  clean_copy: true
+  timestamp: false
+  bounding_box: true
+  retain:
+    default: 10
+
+# Events
+events:
+  retain:
+    default: 10
+    objects:
+      person: 15
+
+# PLACEHOLDER: Camera Configuration
+# Cameras are DISABLED by default.
+# To add a camera, uncomment and fill in RTSP URL, then set enabled: true
+#
+# Example configuration of a typical IP camera:
+#
+# camera:
+#   - name: front_door
+#     enabled: true
+#     ffmpeg:
+#       inputs:
+#         - path: rtsp://username:password@192.168.1.100:554/stream
+#           roles:
+#             - detect
+#             - record
+#     detect:
+#       width: 1280
+#       height: 720
+#       fps: 5
+#     objects:
+#       track:
+#         - person
+#         - car
+#         - dog
+#         - cat
+
+camera: {}
+
+# Motion Configuration (disabled for Phase 1)
+motion:
+  enabled: false
+
+# Mask Configuration (no masks for Phase 1)
+mask:
+  coordinates: []
+
+# Zones (define detection zones per camera later)
+zones: {}
+
+# Advanced Settings
+environment_vars:
+  LIBGL_ALWAYS_INDIRECT: 1

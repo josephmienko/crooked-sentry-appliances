@@ -1,0 +1,80 @@
+# Git Ignore Configuration
+# 
+# This file prevents sensitive and unnecessary files from being committed to git
+
+# Secrets and Credentials (CRITICAL - never commit)
+secrets.env
+.env
+.env.local
+.env.*.local
+
+# Private Keys and SSH
+.ssh/
+*.pem
+*.key
+id_rsa
+id_ed25519
+
+# Home Assistant Config (too large, not needed in repo)
+homeassistant/config/
+homeassistant/backups/
+
+# Docker & Compose
+docker-compose.override.yml
+.docker/
+
+# Frigate Data (large and local)
+compose/optiplex-frigate/frigate/recordings/
+compose/optiplex-frigate/frigate/cache/
+compose/optiplex-frigate/.env
+
+# Development
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# IDE
+*.iml
+.gradle/
+build/
+.classpath
+.project
+
+# OS
+.AppleDouble
+.LSOverride
+._*
+
+# Temporary Files
+tmp/
+temp/
+*.tmp
+*.temp
+*.log
+*.bak
+*.backup
+
+# Backup Files
+*~
+*.swp
+*.swo
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+env/
+venv/
+
+# Node
+node_modules/
+npm-debug.log
+
+# Logs
+logs/
+*.log

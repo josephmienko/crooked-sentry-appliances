@@ -1,0 +1,59 @@
+version: "3.8"
+
+services:
+  frigate:
+    image: ghcr.io/blakeblackshear/frigate:stable
+    container_name: frigate
+    restart: unless-stopped
+    privileged: true
+    
+    environment:
+      TZ: ${TIMEZONE:-America/Chicago}
+      FRIGATE_RTSP_PASSWORD: ${FRIGATE_RTSP_PASSWORD:-password}
+      # Optional: GPU support for object detection
+      # LIBVA_DRIVER_NAME=iHD  # Intel
+      # or
+      # LIBVA_DRIVER_NAME=radeonsi  # AMD
+    
+    volumes:
+      - ./frigate/config:/config:rw
+      - ./frigate/recordings:/media/frigate/recordings:rw
+      - ./frigate/cache:/tmp/cache:rw
+      - /etc/localtime:/etc/localtime:ro
+    
+    ports:
+      # API
+      - "${FRIGATE_API_PORT:-5000}:5000"
+      # RTSP proxy for cameras
+      - "${FRIGATE_RTSP_PORT:-9001}:8554"
+      # Live stream
+      - "8555:8555/tcp"
+      - "8555:8555/udp"
+      # Go2rtc
+      - "8556:8556/tcp"
+      - "8556:8556/udp"
+    
+    networks:
+      - frigate-net
+    
+    labels:
+      - "com.example.description=Frigate NVR for video analytics"
+      - "com.example.maintainer=Home Assistant Setup"
+    
+    deploy:
+      resources:
+        limits:
+          cpus: "2"
+          memory: 2G
+        reservations:
+          cpus: "1"
+          memory: 1G
+
+networks:
+  frigate-net:
+    driver: bridge
+
+volumes:
+  frigate-config:
+  frigate-recordings:
+  frigate-cache:

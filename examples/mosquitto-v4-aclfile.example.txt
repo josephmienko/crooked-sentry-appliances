@@ -1,0 +1,32 @@
+# Mosquitto v4 ACL File Template
+# 
+# This file defines access control rules for MQTT users.
+# Use when you want granular permission control (e.g., frigate can only publish to frigate/* topics).
+#
+# ACL Format:
+#   <subject> <topic_pattern> <action>
+
+# User: homeassistant (reads/writes all frigate topics)
+user homeassistant
+topic readwrite frigate/#
+topic readwrite test/#
+topic readwrite homeassistant/#
+
+# User: frigate (restricted to frigate/* topics only)
+user frigate
+topic readwrite frigate/#
+topic readwrite frigate/events
+topic readwrite frigate/detections
+
+# User: (anonymous - if allowed, restrict heavily)
+pattern read test/ping
+pattern readwrite $SYS/broker/#
+
+# Default deny all others
+# Uncomment if using ACL:
+# Default deny
+
+# Example: if adding a third service/user later
+# user new_service
+# topic write sensors/new_service/#
+# topic read commands/new_service/#
