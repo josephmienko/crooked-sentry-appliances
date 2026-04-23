@@ -1,0 +1,34 @@
+{
+  "schema_version": "2.0",
+  "build": {
+    "variant": "ubuntu",
+    "status": "media_and_flash_complete",
+    "timestamp": "2026-04-22T00:00:00Z"
+  },
+  "machine": {
+    "hostname": "optiplex-frigate",
+    "os_family": "debian",
+    "os_version": "22.04",
+    "arch": "x86_64",
+    "network": {
+      "mode": "static",
+      "ip_address": "192.168.1.20",
+      "hostname_fqdn": "optiplex-frigate.local"
+    }
+  },
+  "bootstrap": {
+    "ssh_user": "ubuntu",
+    "ssh_port": 22,
+    "ssh_key_path": "/root/.ssh/authorized_keys",
+    "status": "not_yet_installed",
+    "marker_supported": true,
+    "marker_path": "/var/lib/acephalous-assembler/bootstrap-complete"
+  },
+  "verification": {
+    "ssh_verified": false,
+    "first_boot_observed": false,
+    "network_accessible": false,
+    "ntp_synchronized": false
+  },
+  "notes": "AA v2.0 canonical handoff schema (post-OS). build.variant: ubuntu|debian|haos. machine.os_family: debian|rhel. CSA parses this to validate connectivity and proceed with Phases 1-7 (post-OS appliance configuration). bootstrap.status='not_yet_installed' means AA bootstrap is complete; CSA is next. verification fields are pre-validation state (CSA validates during Phase 1)."
+}

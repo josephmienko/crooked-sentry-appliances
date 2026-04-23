@@ -48,6 +48,9 @@ Thumbs.db
 *.iml
 .gradle/
 build/
+
+# Coordination Assessment Files (local only, not part of deployable repo)
+.coordination/
 .classpath
 .project
 
