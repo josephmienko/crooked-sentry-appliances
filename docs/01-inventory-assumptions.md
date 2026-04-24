@@ -273,11 +273,49 @@ Save this filled-out checklist as a reference. When ready to use it:
 
 ---
 
+## Phase 1 Post-Handoff: CSA Configuration Tasks
+
+**Important**: After AA bootstrap handoff completes (SSH works + bootstrap marker exists), CSA owns all subsequent appliance configuration.
+
+### Debian Appliance (OptiPlex - Frigate/MQTT Host)
+
+**Status**: AA bootstrap complete. CSA now configures post-bootstrap.
+
+```bash
+# 1. Install Docker & Docker Compose
+ssh <OPTIPLEX_SSH_USER>@<OPTIPLEX_IP>
+sudo apt-get update
+sudo apt-get install -y docker.io docker-compose
+
+# 2. Add user to docker group (so sudo not needed)
+sudo usermod -aG docker <OPTIPLEX_SSH_USER>
+
+# 3. Verify installation (logout & login to apply group changes)
+exit
+ssh <OPTIPLEX_SSH_USER>@<OPTIPLEX_IP>
+docker ps
+docker compose version
+```
+
+**Result**: [ ] Pass / [ ] Fail – If fail, see troubleshooting section
+
+### Home Assistant Appliance (Raspberry Pi)
+
+**Status**: HA OS bootstrap complete. CSA configures via UI/add-ons.
+
+ℹ️ **Note**: SSH to HA OS is optional. Prefer:
+- Web UI: `http://<HA_RPI_IP>:8123` (owner authentication)
+- Supervisor + add-ons (Terminal, SSH if needed as fallback)
+
+**No action required here yet** — proceed to Phase 2 for HA-specific setup.
+
+---
+
 ## Next Steps
 
 All Phase 1 validation checks passed? ✅
 
-**Proceed to [02-ha-os-install.md](02-ha-os-install.md) to begin HA OS setup on Raspberry Pi.**
+**Proceed to [02-ha-os-install.md](02-ha-os-install.md) for Phase 2 (HA configuration).**
 
 ---
 
@@ -299,9 +337,20 @@ All Phase 1 validation checks passed? ✅
 
 ### Docker not found on OptiPlex
 
-- Confirm Docker installation steps were completed
-- Try: `sudo docker ps` (may need sudo)
-- Relogin after `usermod -aG docker` to apply group membership
+**Status**: Not a Phase 1 blocker. Docker installation is a normal CSA Phase 1 post-bootstrap task (see "Phase 1 Post-Handoff" section above).
+
+If Docker needs to be installed:
+
+```bash
+ssh <OPTIPLEX_SSH_USER>@<OPTIPLEX_IP>
+sudo apt-get update
+sudo apt-get install -y docker.io docker-compose
+sudo usermod -aG docker <OPTIPLEX_SSH_USER>
+exit
+# Logout and login again for group membership to apply
+ssh <OPTIPLEX_SSH_USER>@<OPTIPLEX_IP>
+docker ps
+```
 
 ### Hostname resolution fails
 
