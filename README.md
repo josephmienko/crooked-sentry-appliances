@@ -23,7 +23,7 @@
 
 **crooked-sentry-appliances** is a cleanly-documented, phased setup for a home automation appliance infrastructure. It orchestrates a Raspberry Pi running Home Assistant OS with a Dell OptiPlex 3080 running Frigate video analytics, connected via MQTT.
 
-The goal is production-ready simplicity: narrowly-focused, repeatable setup steps with no clever automation—infrastructure you can understand, modify, and operate without external dependencies.
+The goal is pilot-ready simplicity: narrowly-focused, repeatable setup steps with no clever automation—infrastructure you can understand, modify, and operate without external dependencies. **Not production-ready until hardware-validated and tested end-to-end**.
 
 ---
 
@@ -123,6 +123,7 @@ crooked-sentry-appliances/
 ### Environment Contract
 
 All credentials stored in:
+
 - `examples/secrets.env` (non-committed template)
 - HA's `/config/secrets.yaml`
 - OptiPlex's `.env` for Docker Compose
@@ -171,7 +172,7 @@ Each phase includes a **validation checklist**. After Phase 7, you have:
 - ✅ Both appliances powered on and network-reachable
 - ✅ Home Assistant OS running and accessible
 - ✅ Frigate NVR deployed and responding to API
-- ✅ MQTT broker connected and operational
+- ✅ MQTT broker connected (manual runbook; syntax-validated only)
 - ✅ HA + Frigate integration loaded and showing entities
 - ✅ Full system restart tested and successful
 - ✅ Backup and rollback procedures documented
@@ -215,7 +216,7 @@ The following are **explicitly out of scope** for Phase 1–7:
 ## Key Principles
 
 - **Narrowly-focused**: Raspberry Pi + Frigate. Nothing more.
-- **Production-ready**: Works reliably after Phase 7. No toy setup.
+- **Ready for pilot**: Documented and syntax-validated after Phase 7. Hardware validation required before production use.
 - **Documented**: Every step explains what, why, and how to troubleshoot.
 - **Repeatable**: Same steps produce same result every time.
 - **No clever automation**: Prefer documented steps you understand and can modify.
@@ -228,14 +229,14 @@ The following are **explicitly out of scope** for Phase 1–7:
 
 - **Setup Phases**: [setup-phases.md](docs/setup-phases.md)
 - **Phase Details**: [docs/](docs/) directory
-- **Home Assistant**: https://www.home-assistant.io/
-- **Frigate**: https://docs.frigate.video/
-- **Mosquitto**: https://mosquitto.org/
+- **Home Assistant**: <https://www.home-assistant.io/>
+- **Frigate**: <https://docs.frigate.video/>
+- **Mosquitto**: <https://mosquitto.org/>
 
 ---
 
 ## Project Status
 
-**Phase 1–7 complete and documented.** Ready to deploy.
+**Phase 1–7 complete and documented.** Ready for pilot deployment; hardware validation required before production.
 
 Phases 8–9 are future extensions (split into separate repos). Start with Phase 1 when ready.

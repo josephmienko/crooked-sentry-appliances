@@ -49,8 +49,8 @@
 
 | Script | Purpose | Status |
 | --- | --- | --- |
-| scripts/validate-network-connectivity.sh | Network health checks | Production-ready |
-| scripts/generate-secrets-template.sh | Secure secrets file generation | Production-ready |
+| scripts/validate-network-connectivity.sh | Network health checks | Syntax-validated; hardware tests required |
+| scripts/generate-secrets-template.sh | Secure secrets file generation | Documented; manual runbook |
 | scripts/README.md | Script documentation | Ready |
 
 ### 🏠 Home Assistant Configuration Guides (3 Files)
@@ -336,7 +336,7 @@ git log --oneline | head -5
 
 ## Summary
 
-✅ **Project skeleton complete and production-ready.**
+✅ **Project skeleton complete and ready for pilot testing.** Hardware validation required before production use.
 
 You now have:
 

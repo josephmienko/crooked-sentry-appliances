@@ -1,101 +1,27 @@
-# Phase 2: Home Assistant OS Install (Raspberry Pi)
+# Phase 2: Home Assistant OS Onboarding (Raspberry Pi)
 
-**Duration**: ~1–2 hours  
-**Goal**: Spin up a functional Home Assistant OS instance on the Raspberry Pi with network access and initial configuration.
+**Duration**: ~30–45 minutes  
+**Goal**: Complete the Home Assistant OS onboarding and verify the appliance is operational.
 
-## Overview
+## Important: OS Installation is Pre-Deployment
 
-Home Assistant OS is a purpose-built appliance image that runs on Raspberry Pi (and other supported boards). It includes Docker, Home Assistant Core, and a supervisor for add-on management.
+The actual Home Assistant OS installation (downloading image, flashing to SD card, initial boot) is performed by the `acephalous-assembler` bootstrap workflow **before** this repo takes over.
 
-**Prerequisites**:
+**This phase assumes**:
 
-- Phase 1 (Inventory & Assumptions) completed
-- MicroSD card inserted into development machine (USB reader)
-- Raspberry Pi offline and powered down
+- Home Assistant OS is already installed on the Raspberry Pi
+- The Raspberry Pi is already powered on and booted
+- Network connectivity is established (Ethernet or WiFi)
+- SSH access is available
+- You have completed **Phase 1 (Inventory & Assumptions)**
 
----
-
-## Step 1: Download Home Assistant OS Image
-
-1. **Visit** [home-assistant.io/download](https://www.home-assistant.io/download/) and select **Raspberry Pi**
-2. Choose your board version:
-   - **Raspberry Pi 4** (64-bit) – ARM v8/aarch64
-   - **Raspberry Pi 5** (64-bit) – ARM v8/aarch64
-   - Other: CM4, Zero 2 W (choose accordingly)
-3. Click **Download** – saves `ha-rpi-x.y.img.gz` (~900 MB)
-4. Verify checksum if provided (optional but recommended):
-
-   ```bash
-   sha256sum ha-rpi-x.y.img.gz
-   # Compare against published checksum on download page
-   ```
-
-**Result**: [ ] Image file downloaded and checksum verified (if applicable)
+If you need to install HA OS from scratch, refer to the [acephalous-assembler](https://github.com/josephmienko/acephalous-assembler) repository for bootstrap procedures.
 
 ---
 
-## Step 2: Flash MicroSD Card
+## Step 1: Access Home Assistant UI for Onboarding
 
-You'll write the HA OS image to your MicroSD card using one of these tools:
-
-### Option A: Raspberry Pi Imager (Recommended)
-
-**macOS / Linux / Windows**: [raspberrypi.com/software](https://www.raspberrypi.com/software/)
-
-1. Install **Raspberry Pi Imager**
-2. Insert MicroSD card into USB reader
-3. Open Imager and:
-   - **Choose Device**: Select your Raspberry Pi model
-   - **Choose OS**: "Other general-purpose OS" → "Home Assistant" → Select your image file
-   - **Choose Storage**: Select MicroSD card (double-check you have the right drive!)
-   - Click **Next** and confirm you're writing to the SD card
-4. Wait for write and verify to complete (~10–15 minutes)
-5. Eject the card when done
-
-**Result**: [ ] MicroSD card successfully flashed
-
-### Option B: balena Etcher (Alternative)
-
-1. Download from [balena.io/etcher](https://www.balena.io/etcher/)
-2. Install and open
-3. **Flash from file**: Select `ha-rpi-x.y.img.gz`
-4. **Select target**: Choose your MicroSD card
-5. **Flash**: Click and wait for verification
-6. Eject when done
-
-**Result**: [ ] MicroSD card successfully flashed
-
----
-
-## Step 3: Prepare Raspberry Pi
-
-1. **Remove MicroSD card** from development machine
-2. **Eject properly**:
-   - macOS: Drag to Trash or use `umount` command
-   - Linux: `umount /media/<your-cards>` or use file manager
-3. **Insert MicroSD card** into Raspberry Pi (small slot, usually on bottom)
-4. **Connect network**:
-   - Preferred: Ethernet cable directly to router or switch
-   - Alternative: Ensure WiFi adapter (USB dongle) is plugged in
-5. **Connect power**: Use official RP PSU (2.5A for Pi4, 5A for Pi5)
-   - **Do not use generic USB chargers** – can cause stability issues
-6. **Allow first boot** – wait 5–10 minutes while system initializes
-
-**During first boot, the Pi will**:
-
-- Resize filesystem
-- Initialize container runtime
-- Set up network
-- Start Home Assistant
-- Generate logs and configs
-
-**Status**: [ ] Powered on and waiting for first boot (~10 min)
-
----
-
-## Step 4: Access Home Assistant UI
-
-The Raspberry Pi will obtain an IP via DHCP (your router manages this).
+Home Assistant OS will automatically start Home Assistant Core on first boot. Access the web UI to complete onboarding.
 
 ### Option A: Via Hostname (Preferred if mDNS Available)
 

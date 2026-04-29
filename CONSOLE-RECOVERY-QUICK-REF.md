@@ -8,7 +8,7 @@
 
 ```
 Username: bossbitch
-Password: MdR2f/0sXZDO5sO4j9mHuXpx
+Password: [USE YOUR SUDO PASSWORD - NOT COMMITTED TO REPO]
 ```
 
 ---
@@ -16,6 +16,7 @@ Password: MdR2f/0sXZDO5sO4j9mHuXpx
 ## NETWORK RECOVERY STEPS
 
 ### Step 1: Check Interface Status
+
 ```bash
 ip link show enp2s0
 ```
@@ -23,6 +24,7 @@ ip link show enp2s0
 Expected output should show: `UP` or `DOWN`
 
 ### Step 2: Check Current IP
+
 ```bash
 ip addr show enp2s0
 ```
@@ -30,16 +32,19 @@ ip addr show enp2s0
 Look for: `inet 192.168.0.XX/24`
 
 ### Step 3: Restart Networking
+
 ```bash
 sudo systemctl restart systemd-networkd
 ```
 
 Wait 3 seconds, then check:
+
 ```bash
 ip addr show enp2s0
 ```
 
 ### Step 4: Test Internet Connectivity
+
 ```bash
 ping 8.8.8.8
 ```
@@ -47,6 +52,7 @@ ping 8.8.8.8
 Press Ctrl+C after 3-4 pings. Should see responses.
 
 ### Step 5: Check SSH Service
+
 ```bash
 sudo systemctl status ssh
 ```
@@ -54,11 +60,13 @@ sudo systemctl status ssh
 Should say: `active (running)`
 
 If not running:
+
 ```bash
 sudo systemctl restart ssh
 ```
 
 ### Step 6: Verify SSH Port
+
 ```bash
 sudo ss -tlnp | grep 22
 ```
@@ -101,6 +109,7 @@ echo "✓ Recovery Complete!"
 ## DOCKER STATUS (After SSH Works)
 
 From your Mac, run:
+
 ```bash
 ssh -i ~/.ssh/id_ed25519 bossbitch@192.168.0.18 "docker ps -f name=frigate --format '{{.Status}}'"
 ```
@@ -133,6 +142,7 @@ ip addr show enp2s0
 ## TROUBLESHOOTING
 
 **If no IP address appears:**
+
 ```bash
 # Check DHCP client logs
 journalctl -u systemd-networkd -n 50
@@ -148,6 +158,7 @@ ip addr show
 ```
 
 **If still no IP:**
+
 ```bash
 # Check Netplan config
 sudo cat /etc/netplan/*.yaml
@@ -157,6 +168,7 @@ sudo dhclient enp2s0
 ```
 
 **If SSH won't connect even with IP:**
+
 ```bash
 # Check SSH is running
 sudo systemctl status ssh
@@ -175,7 +187,7 @@ sudo journalctl -u ssh -n 20
 
 ## QUICK CHECKLIST
 
-- [ ] Login: `bossbitch` / `MdR2f/0sXZDO5sO4j9mHuXpx`
+- [ ] Login: `bossbitch` / [USE YOUR SUDO PASSWORD]
 - [ ] Check interface: `ip link show enp2s0`
 - [ ] Check IP: `ip addr show enp2s0`
 - [ ] Restart network: `sudo systemctl restart systemd-networkd`
@@ -184,6 +196,7 @@ sudo journalctl -u ssh -n 20
 - [ ] SSH port listening: `sudo ss -tlnp | grep 22`
 
 Once all green:
+
 - [ ] From Mac: `ssh -i ~/.ssh/id_ed25519 bossbitch@192.168.0.18`
 - [ ] Verify Frigate: `docker ps -f name=frigate`
 - [ ] Done!

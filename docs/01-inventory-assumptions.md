@@ -304,6 +304,7 @@ docker compose version
 **Status**: HA OS bootstrap complete. CSA configures via UI/add-ons.
 
 ℹ️ **Note**: SSH to HA OS is optional. Prefer:
+
 - Web UI: `http://<HA_RPI_IP>:8123` (owner authentication)
 - Supervisor + add-ons (Terminal, SSH if needed as fallback)
 

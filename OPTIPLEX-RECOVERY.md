@@ -40,12 +40,12 @@ scp -i ~/.ssh/id_ed25519 \
   bossbitch@192.168.0.18:/tmp/
 
 # SSH and run it
-OPTIPLEX_SUDO_PASS="MdR2f/0sXZDO5sO4j9mHuXpx" \
+OPTIPLEX_SUDO_PASS="YOUR_SUDO_PASSWORD" \
   ssh -i ~/.ssh/id_ed25519 bossbitch@192.168.0.12 \
   "bash /tmp/optiplex-network-recovery.sh"
 
 # Or if at .18:
-OPTIPLEX_SUDO_PASS="MdR2f/0sXZDO5sO4j9mHuXpx" \
+OPTIPLEX_SUDO_PASS="YOUR_SUDO_PASSWORD" \
   ssh -i ~/.ssh/id_ed25519 bossbitch@192.168.0.18 \
   "bash /tmp/optiplex-network-recovery.sh"
 ```
@@ -76,6 +76,7 @@ ssh -i ~/.ssh/id_ed25519 bossbitch@192.168.0.18 \
 ---
 
 **Important**: The r8169 live reload was a bad idea. In future:
+
 - ✅ Set driver parameters at boot time (grub/netplan)
 - ❌ Don't reload drivers on active systems without recovery plan
 - ✅ If changes needed, plan for clean reboot instead

@@ -9,7 +9,10 @@ services:
     
     environment:
       TZ: ${TIMEZONE:-America/Chicago}
-      FRIGATE_RTSP_PASSWORD: ${FRIGATE_RTSP_PASSWORD:-password}
+      FRIGATE_RTSP_PASSWORD: ${FRIGATE_RTSP_PASSWORD:?set FRIGATE_RTSP_PASSWORD in .env}
+      MQTT_PASSWORD: ${MQTT_PASSWORD:?set MQTT_PASSWORD in .env}
+      MQTT_USER: ${MQTT_USER:-frigate}
+      MQTT_SERVER: ${MQTT_SERVER:-mosquitto}
       # Optional: GPU support for object detection
       # LIBVA_DRIVER_NAME=iHD  # Intel
       # or
@@ -25,7 +28,7 @@ services:
       # API
       - "${FRIGATE_API_PORT:-5000}:5000"
       # RTSP proxy for cameras
-      - "${FRIGATE_RTSP_PORT:-9001}:8554"
+      - "${FRIGATE_RTSP_PORT:-8554}:8554"
       # Live stream
       - "8555:8555/tcp"
       - "8555:8555/udp"
